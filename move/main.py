@@ -38,8 +38,8 @@ def blit(t, val):
           with t.location():
               echo(t.standout(' '))
       return
-  if val.code == t.KEY_BACKSPACE:
-      echo(t.clear) 
+  if val.code in [t.KEY_DELETE, t.KEY_BACKSPACE]:
+      echo(t.clear)
       return
   with t.location():
       echo(val)
