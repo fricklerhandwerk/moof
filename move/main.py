@@ -26,7 +26,7 @@ def main():
         with t.cbreak():
             while True:
                 val = t.inkey()
-                if val.lower() == 'q':
+                if val.code == t.KEY_ESCAPE:
                     break
                 blit(t, val)
 
