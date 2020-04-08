@@ -1,8 +1,15 @@
 # move
 
-Example `Python` application to practice `nix` packaging.
+Interactive terminal UI application written in `Python` to practice `nix` packaging.
 
-The program lets you move the terminal cursor with arrow keys. `Enter` toggles "drawing" mode, which highlights any cell the cursor passes. Any other keyboard press writes the respective character to the cell under the cursor.
+## Controls
+
+- arrow keys: move cursor
+- `Enter`: toggle "drawing" mode (highlight cells under cursor in green)
+- `Backspace`: clear screen
+- `Escape`: quit program
+
+All other keys will print the respective character at the cursor position without changing it.
 
 Run `move` without installing:
 

@@ -37,12 +37,12 @@ def blit(t, val):
         draw = not draw
         if draw:
             with t.location():
-                echo(t.standout(' '))
+                echo(t.green(t.standout(' ')))
     if val.code in [t.KEY_DOWN, t.KEY_UP, t.KEY_LEFT, t.KEY_RIGHT]:
         echo(val)
         if draw:
             with t.location():
-                echo(t.standout(' '))
+                echo(t.green(t.standout(' ')))
         return
     if val.code in [t.KEY_DELETE, t.KEY_BACKSPACE]:
         echo(t.clear)
