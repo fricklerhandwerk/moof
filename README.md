@@ -6,6 +6,7 @@ Interactive terminal UI application written in `Python` to practice `nix` packag
 
 - arrow keys: move cursor
 - `Enter`: toggle "drawing" mode (highlight cells under cursor in green)
+- Numbers 1-9: select drawing color
 - `Backspace`: clear screen
 - `Escape`: quit program
 
