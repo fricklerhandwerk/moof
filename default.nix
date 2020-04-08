@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 with python37Packages;
 buildPythonApplication rec {
-  name = "move";
+  name = "moof";
   src = ./.;
 
   PBR_VERSION = "0.1.0";

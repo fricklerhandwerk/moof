@@ -1,6 +1,8 @@
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from enum import IntEnum
 from functools import partial
+from time import time_ns
 
 from blessed import Terminal
 
@@ -22,6 +24,7 @@ echo = partial(print, end='', flush=True)
 
 draw = False
 color = Color.GREEN
+keys = []
 
 
 @contextmanager
@@ -45,6 +48,7 @@ def main():
                 with optional(draw, t.hidden_cursor()):
                     val = t.inkey()
                     if val.code == t.KEY_ESCAPE:
+                        write(keys)
                         break
                     blit(t, val)
 
@@ -52,7 +56,11 @@ def main():
 def blit(t, val):
     global draw
     global color
-    if val in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+    global keys
+
+    keys.append((time_ns(), ord(val[0]) if val.code is None else val.code))
+
+    if val in (str(c.value) for c in list(Color)):
         color = Color(int(val))
     if val.code == t.KEY_ENTER or val == ' ':
         draw = not draw
@@ -61,6 +69,16 @@ def blit(t, val):
     if val.code in [t.KEY_DELETE, t.KEY_BACKSPACE]:
         echo(t.clear)
         draw = False
+        write(keys)
+        keys = []
     if draw:
         with t.location():
             echo(getattr(t, f"on_{color.name.lower()}")(' '))
+
+
+def write(keys):
+    name = "moof-" + datetime.now(timezone.utc).isoformat(timespec='seconds')
+    with open(name, 'w') as f:
+        print("<unix time in ns> <key code>", file=f)
+        for t, k in keys:
+            print(t, k, sep=' ', file=f)
