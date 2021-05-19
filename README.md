@@ -1,33 +1,35 @@
-# move
+# moof
 
 Interactive terminal UI application written in `Python` to practice `nix` packaging.
 
 ## Controls
 
 - arrow keys: move cursor
-- `Enter`: toggle "drawing" mode (highlight cells under cursor in green)
+- `Enter` or `Space`: toggle "drawing" mode (highlight cells under cursor in chosen color)
 - Numbers 1-9: select drawing color
 - `Backspace`: clear screen
 - `Escape`: quit program
 
-All other keys will print the respective character at the cursor position without changing it.
+All changes to the screen state are recorded to a file in the current directory. This way the produced images can in principle be recreated.
 
-Run `move` without installing:
+## Installation
 
-    cd move
-    nix-shell --run move
+Run `moof` without installing:
 
-To add `move` to an environment, add the package in the appropriate place (`buildInputs`, `environment.systemPackages`, `home.packages`, etc.) by importing this repository's directory. Example:
+    cd moof
+    nix-shell --run moof
+
+To add `moof` to an environment, add the package in the appropriate place (`buildInputs`, `environment.systemPackages`, `home.packages`, etc.) by importing this repository's directory. Example:
 
     let
-      move = builtins.fetchGit {
-        url = "https://github.com/fricklerhandwerk/move";
+      moof = builtins.fetchGit {
+        url = "https://github.com/fricklerhandwerk/moof";
         ref = "master";
       };
     in
     home.packages = [
       # ...
-      (import move)
+      (import moof)
     ];
 
   
