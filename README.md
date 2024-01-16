@@ -29,7 +29,7 @@ To add `moof` to an environment, add the package in the appropriate place (`buil
     in
     home.packages = [
       # ...
-      (import moof)
+      (import moof).moof
     ];
 
   
