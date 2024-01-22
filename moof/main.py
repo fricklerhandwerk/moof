@@ -1,4 +1,7 @@
+import os
 import signal
+import sys
+
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from enum import IntEnum
@@ -74,16 +77,24 @@ class App():
         if self.keys == []:
             return
 
-        name = "moof-" + \
-            datetime.now(timezone.utc).isoformat(timespec='seconds')
+        try:
+            xdg_dir = os.environ.get('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
+            program_name = os.path.basename(sys.argv[0])
+            target_dir = os.path.join(xdg_dir, program_name)
+            os.makedirs(target_dir, exist_ok=True)
+            timestamp = datetime.now(timezone.utc).isoformat(timespec='seconds')
+            path = os.path.join(target_dir, f"{program_name}-{timestamp}")
 
-        with open(name, 'w') as f:
-            print("<terminal width> <terminal height>", file=f)
-            print(self.width, self.height, end='\n\n', file=f)
-            print("<unix time in ns> <key code>", file=f)
-            for t, k in self.keys:
-                print(t, k, sep=' ', file=f)
-
+            with open(path, 'w') as f:
+                print("<terminal width> <terminal height>", file=f)
+                print(self.width, self.height, end='\n\n', file=f)
+                print("<unix time in ns> <key code>", file=f)
+                for t, k in self.keys:
+                    print(t, k, sep=' ', file=f)
+        # writing history is not essential
+        except OSError as e:
+            print(e, file=sys.stderr)
+            pass
 
 class Reset(Exception):
     pass

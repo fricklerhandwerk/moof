@@ -10,7 +10,8 @@ Interactive terminal UI application written in `Python` to practice `nix` packag
 - `Backspace`: clear screen
 - `Escape`: quit program
 
-All changes to the screen state are recorded to a file in the current directory. This way the produced images can in principle be recreated.
+All changes to the screen state are recorded to `$XDG_DATA_HOME/moof/moof-$(datetime --iso=seconds)`.
+This way the produced images can in principle be recreated.
 
 ## Installation
 
